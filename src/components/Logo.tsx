@@ -1,0 +1,11 @@
+export default function Logo({ className = "w-10 h-10" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path d="M 0 30 C 0 10 10 0 30 0 L 43 0 C 44.1 0 45 0.9 45 2 L 45 25 C 45 36 36 45 25 45 L 2 45 C 0.9 45 0 44.1 0 43 Z" fill="#17224d" />
+      <path d="M 55 2 C 55 0.9 55.9 0 57 0 L 70 0 C 90 0 100 10 100 30 L 100 43 C 100 44.1 99.1 45 98 45 L 75 45 C 64 45 55 36 55 25 Z" fill="#2c7ef7" />
+      <path d="M 55 75 C 55 64 64 55 75 55 L 98 55 C 99.1 55 100 55.9 100 57 L 100 70 C 100 90 90 100 70 100 L 57 100 C 55.9 100 55 99.1 55 98 Z" fill="#17224d" />
+      <path d="M 2 55 L 25 55 C 36 55 45 64 45 75 L 45 98 C 45 99.1 44.1 100 43 100 L 30 100 C 10 100 0 90 0 70 L 0 57 C 0 55.9 0.9 55 2 55 Z" fill="#2c7ef7" />
+      <rect x="33" y="33" width="34" height="34" rx="10" fill="#243482" />
+    </svg>
+  );
+}

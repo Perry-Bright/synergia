@@ -1,0 +1,117 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Helpers
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+
+    // Validation Blueprint for ExpressionOfInterest
+    function isValidExpressionOfInterest(data) {
+      return data.keys().hasAll(['institutionName', 'institutionType', 'city', 'country', 'contactPerson', 'role', 'email', 'phone', 'createdAt']) &&
+        data.keys().size() <= 26 &&
+        data.institutionName is string && data.institutionName.size() <= 200 &&
+        data.institutionType is string && data.institutionType.size() <= 100 &&
+        data.city is string && data.city.size() <= 100 &&
+        data.country is string && data.country.size() <= 100 &&
+        data.contactPerson is string && data.contactPerson.size() <= 150 &&
+        data.role is string && data.role.size() <= 100 &&
+        data.email is string && data.email.size() <= 150 &&
+        data.phone is string && data.phone.size() <= 50 &&
+        data.createdAt is timestamp &&
+        (
+          !('instructionLanguage' in data) ||
+          (data.instructionLanguage is string && data.instructionLanguage.size() <= 100)
+        ) &&
+        (
+          !('currentTuitionRange' in data) ||
+          (data.currentTuitionRange is string && data.currentTuitionRange.size() <= 100)
+        ) &&
+        (
+          !('maxTuitionPotential' in data) ||
+          (data.maxTuitionPotential is string && data.maxTuitionPotential.size() <= 100)
+        ) &&
+        (
+          !('willingnessPremium' in data) ||
+          (data.willingnessPremium is string && data.willingnessPremium.size() <= 100)
+        ) &&
+        (
+          !('onlineSupport' in data) ||
+          (data.onlineSupport is string && data.onlineSupport.size() <= 100)
+        ) &&
+        (
+          !('internetQuality' in data) ||
+          (data.internetQuality is number)
+        ) &&
+        (
+          !('launchTimeline' in data) ||
+          (data.launchTimeline is string && data.launchTimeline.size() <= 100)
+        ) &&
+        (
+          !('pilotIntake' in data) ||
+          (data.pilotIntake is string && data.pilotIntake.size() <= 100)
+        ) &&
+        (
+          !('pilotOpenness' in data) ||
+          (data.pilotOpenness is string && data.pilotOpenness.size() <= 100)
+        ) &&
+        (
+          !('infrastructure' in data) ||
+          (data.infrastructure is list && data.infrastructure.size() <= 20)
+        ) &&
+        (
+          !('internalSupport' in data) ||
+          (data.internalSupport is list && data.internalSupport.size() <= 20)
+        ) &&
+        (
+          !('currentEnrollment' in data) ||
+          (data.currentEnrollment is string && data.currentEnrollment.size() <= 100)
+        ) &&
+        (
+          !('programsOffered' in data) ||
+          (data.programsOffered is list && data.programsOffered.size() <= 20)
+        ) &&
+        (
+          !('objectives' in data) ||
+          (data.objectives is list && data.objectives.size() <= 20)
+        ) &&
+        (
+          !('interestedPrograms' in data) ||
+          (data.interestedPrograms is list && data.interestedPrograms.size() <= 20)
+        ) &&
+        (
+          !('currentInternationalTies' in data) ||
+          (data.currentInternationalTies is string && data.currentInternationalTies.size() <= 10)
+        ) &&
+        (
+          !('toolsUsed' in data) ||
+          (data.toolsUsed is string && data.toolsUsed.size() <= 500)
+        ) &&
+        (
+          !('budgetCommitment' in data) ||
+          (data.budgetCommitment is string && data.budgetCommitment.size() <= 100)
+        ) &&
+        (
+          !('additionalInfo' in data) ||
+          (data.additionalInfo is string && data.additionalInfo.size() <= 2000)
+        );
+    }
+
+    match /eois/{eoiId} {
+      allow create: if isValidId(eoiId) &&
+                    isValidExpressionOfInterest(incoming()) &&
+                    incoming().createdAt == request.time;
+      allow read: if false; // Only accessible via backend or admin dashboard
+      allow update, delete: if false;
+    }
+  }
+}

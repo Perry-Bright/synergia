@@ -60,7 +60,7 @@ export default function Landing() {
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-slate-500 mb-8 md:mb-10 max-w-2xl leading-relaxed font-medium">
               We help selected institutions launch premium international
-              programs <span className="font-bold text-slate-900 border-b-2 border-slate-200 whitespace-nowrap">(4M–8M XAF)</span> with global university partners for the next academic intake.
+              programs with global university partners for the next academic intake.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center">
                <a href="#apply" className="px-8 py-4 bg-[#0d72ff] text-white font-bold rounded-full shadow-xl shadow-[#0d72ff]/30 hover:bg-blue-600 hover:shadow-[#0d72ff]/40 transition-all text-lg hover:-translate-y-0.5 w-full sm:w-auto text-center">

@@ -113,5 +113,47 @@ service cloud.firestore {
       allow read: if false; // Only accessible via backend or admin dashboard
       allow update, delete: if false;
     }
+    function isValidForeignEOI(data) {
+      return data.keys().hasAll(['institutionName', 'website', 'accreditationStatus', 'primaryObjectives', 'fieldsOfStudy', 'deliveryMode', 'tuitionRange', 'revenueSharing', 'localizedPricing', 'cobrandedPrograms', 'maxStudentCapacity', 'experienceInternational', 'facultyAvailability', 'remoteAssessments', 'partnerExpectations', 'involvementLevel', 'timeline', 'decisionMaker', 'contactName', 'contactTitle', 'email', 'phone', 'createdAt']) &&
+        data.keys().size() <= 40 &&
+        data.institutionName is string && data.institutionName.size() <= 200 &&
+        data.website is string && data.website.size() <= 200 &&
+        data.accreditationStatus is string && data.accreditationStatus.size() <= 1000 &&
+        data.primaryObjectives is string && data.primaryObjectives.size() <= 2000 &&
+        data.fieldsOfStudy is string && data.fieldsOfStudy.size() <= 1000 &&
+        data.deliveryMode is string && data.deliveryMode.size() <= 100 &&
+        data.tuitionRange is string && data.tuitionRange.size() <= 200 &&
+        data.revenueSharing is string && data.revenueSharing.size() <= 100 &&
+        data.localizedPricing is string && data.localizedPricing.size() <= 100 &&
+        data.cobrandedPrograms is string && data.cobrandedPrograms.size() <= 100 &&
+        data.maxStudentCapacity is string && data.maxStudentCapacity.size() <= 100 &&
+        data.experienceInternational is string && data.experienceInternational.size() <= 100 &&
+        data.facultyAvailability is string && data.facultyAvailability.size() <= 100 &&
+        data.remoteAssessments is string && data.remoteAssessments.size() <= 100 &&
+        data.partnerExpectations is string && data.partnerExpectations.size() <= 2000 &&
+        data.involvementLevel is string && data.involvementLevel.size() <= 100 &&
+        data.timeline is string && data.timeline.size() <= 100 &&
+        data.decisionMaker is string && data.decisionMaker.size() <= 200 &&
+        data.contactName is string && data.contactName.size() <= 150 &&
+        data.contactTitle is string && data.contactTitle.size() <= 100 &&
+        data.email is string && data.email.size() <= 150 &&
+        data.phone is string && data.phone.size() <= 50 &&
+        data.createdAt is timestamp &&
+        (!('country' in data) || (data.country is string && data.country.size() <= 100)) &&
+        (!('institutionType' in data) || (data.institutionType is list && data.institutionType.size() <= 20)) &&
+        (!('interestedPartnerships' in data) || (data.interestedPartnerships is list && data.interestedPartnerships.size() <= 20)) &&
+        (!('targetRegions' in data) || (data.targetRegions is list && data.targetRegions.size() <= 20)) &&
+        (!('availablePrograms' in data) || (data.availablePrograms is list && data.availablePrograms.size() <= 20)) &&
+        (!('learningPlatforms' in data) || (data.learningPlatforms is list && data.learningPlatforms.size() <= 20)) &&
+        (!('additionalInfrastructure' in data) || (data.additionalInfrastructure is string && data.additionalInfrastructure.size() <= 2000));
+    }
+
+    match /foreign_eois/{eoiId} {
+      allow create: if isValidId(eoiId) &&
+                    isValidForeignEOI(incoming()) &&
+                    incoming().createdAt == request.time;
+      allow read: if false;
+      allow update, delete: if false;
+    }
   }
 }

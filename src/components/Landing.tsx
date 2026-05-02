@@ -95,18 +95,6 @@ export default function Landing() {
         {/* EOI Form Section */}
         <section id="apply" className="px-6 md:px-12 relative z-20 -mt-12 md:-mt-20 mb-20 md:mb-24">
              <div className="max-w-4xl mx-auto relative z-10">
-                <div className="text-center mb-8 md:mb-12">
-                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
-                     Expression of Interest
-                   </h2>
-                   <p className="text-base md:text-lg font-bold text-[#0d72ff] uppercase tracking-wider mb-4 md:mb-6">
-                     International Academic Partnerships • 2026 Intake
-                   </p>
-                   <p className="text-slate-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-                     Synergia is working with selected institutions to design and launch premium international academic programs. Completing this form assesses your institution's alignment and readiness.
-                   </p>
-                </div>
-
                 <div className="bg-white/90 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(13,114,255,0.1)] p-6 sm:p-10 md:p-14 border border-white relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-[#0d72ff]/5 to-transparent pointer-events-none -z-10"></div>
                     <EOIForm />

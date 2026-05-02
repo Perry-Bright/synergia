@@ -46,12 +46,71 @@
         "phone",
         "createdAt"
       ]
+    },
+    "ForeignExpressionOfInterest": {
+      "title": "Foreign Expression of Interest",
+      "description": "An expression of interest from a foreign institution.",
+      "type": "object",
+      "properties": {
+        "institutionName": { "type": "string", "maxLength": 200 },
+        "website": { "type": "string", "maxLength": 200 },
+        "accreditationStatus": { "type": "string", "maxLength": 1000 },
+        "primaryObjectives": { "type": "string", "maxLength": 2000 },
+        "fieldsOfStudy": { "type": "string", "maxLength": 1000 },
+        "deliveryMode": { "type": "string", "maxLength": 100 },
+        "tuitionRange": { "type": "string", "maxLength": 200 },
+        "revenueSharing": { "type": "string", "maxLength": 100 },
+        "localizedPricing": { "type": "string", "maxLength": 100 },
+        "cobrandedPrograms": { "type": "string", "maxLength": 100 },
+        "maxStudentCapacity": { "type": "string", "maxLength": 100 },
+        "experienceInternational": { "type": "string", "maxLength": 100 },
+        "facultyAvailability": { "type": "string", "maxLength": 100 },
+        "remoteAssessments": { "type": "string", "maxLength": 100 },
+        "partnerExpectations": { "type": "string", "maxLength": 2000 },
+        "involvementLevel": { "type": "string", "maxLength": 100 },
+        "timeline": { "type": "string", "maxLength": 100 },
+        "decisionMaker": { "type": "string", "maxLength": 200 },
+        "contactName": { "type": "string", "maxLength": 150 },
+        "contactTitle": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "format": "email", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "number" }
+      },
+      "required": [
+        "institutionName",
+        "website",
+        "accreditationStatus",
+        "primaryObjectives",
+        "fieldsOfStudy",
+        "deliveryMode",
+        "tuitionRange",
+        "revenueSharing",
+        "localizedPricing",
+        "cobrandedPrograms",
+        "maxStudentCapacity",
+        "experienceInternational",
+        "facultyAvailability",
+        "remoteAssessments",
+        "partnerExpectations",
+        "involvementLevel",
+        "timeline",
+        "decisionMaker",
+        "contactName",
+        "contactTitle",
+        "email",
+        "phone",
+        "createdAt"
+      ]
     }
   },
   "firestore": {
     "/eois/{eoiId}": {
       "schema": { "$ref": "#/entities/ExpressionOfInterest" },
       "description": "Stores all the submitted expression of interest forms."
+    },
+    "/foreign_eois/{eoiId}": {
+      "schema": { "$ref": "#/entities/ForeignExpressionOfInterest" },
+      "description": "Stores foreign expression of interest forms."
     }
   }
 }
